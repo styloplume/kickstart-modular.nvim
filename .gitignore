@@ -5,3 +5,13 @@ nvim
 
 spell/
 lazy-lock.json
+
+tst/cpp/build/
+tst/cpp/.cache/
+
+tst/tex/tst.aux
+tst/tex/tst.fdb_latexmk
+tst/tex/tst.fls
+tst/tex/tst.log
+tst/tex/tst.pdf
+tst/tex/tst.synctex.gz

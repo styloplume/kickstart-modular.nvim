@@ -1,0 +1,19 @@
+SortIncludes: false
+UseTab: Never
+IndentWidth: 2
+BreakBeforeBraces: Allman
+AllowShortIfStatementsOnASingleLine: true
+IndentCaseLabels: false
+ColumnLimit: 0
+AlignConsecutiveAssignments: Consecutive
+SeparateDefinitionBlocks: Always
+SpacesBeforeTrailingComments: 4
+PackConstructorInitializers: Never
+ConstructorInitializerIndentWidth: 0
+InsertNewlineAtEOF: true
+AlignAfterOpenBracket: Align
+AllowShortFunctionsOnASingleLine: None
+AlignConsecutiveDeclarations: Consecutive
+# Breaks everything :/
+# BinPackParameters: AlwaysOnePerLine
+BreakTemplateDeclarations: No
