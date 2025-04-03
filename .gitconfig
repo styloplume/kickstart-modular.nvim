@@ -1,0 +1,48 @@
+# Sadness : git-recover from EThomson is a bash script probably
+# not runnable on regular Windows. (starred on github anyway)
+
+[alias]
+	lol = log --oneline --decorate
+	graph = log --oneline --graph --decorate
+	refiso = reflog --date=iso
+	refpre = reflog --date=iso --pretty
+	wdiff = diff --word-diff
+	blaccc = blame -C -C -C
+
+[color.decorate]
+	branch = 45
+	HEAD = "#00ffff" bold
+# Windows MINTTY install of git offers more colours than default install
+
+[grep]
+	lineNumber = true
+	patternType = perl
+
+[merge]
+	conflictstyle = diff3
+	# sourcegear diffmerge - try it out
+	# also check out tf merge (comes with VS)
+	# tool = sgdm
+
+#[mergetool.sgdm]
+#	cmd = sgdm -merge -result=\"$MERGED\" \
+		#\"$LOCAL\" \"$BASE\" \"$REMOTE\"
+# git mergetool ...
+#
+
+# Remembers previous conflict resolutions after a rebase abort
+[rerere]
+	enabled = true
+
+[core]
+	#excludesfile = /users/username/.gitignore
+
+# conditional includes to separate projects or work stuff.
+[user]
+	#name = <name>
+[includeif "gitdir:/users/user/project/"]
+	path = .gitconfig.project
+[includeif "gitdir:/users/user/project2/"]
+	path = .gitconfig.project2
+# Allows specifying different emails in different projects.
+
