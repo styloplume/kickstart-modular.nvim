@@ -1,3 +1,12 @@
+# NOTE : On git configuration
+# System wide config @ ?
+# User global config @ c:/users/<user>/.gitconfig
+# Repo local config  @ .git/config
+# .gitconfig is used for shared customization
+# (can be committed, holds no sensitive info)
+# requires manual include for each clone of a repo :
+# > git config --local include.path ../.gitconfig
+
 # Sadness : git-recover from EThomson is a bash script probably
 # not runnable on regular Windows. (starred on github anyway)
 
@@ -18,18 +27,6 @@
 	lineNumber = true
 	patternType = perl
 
-[merge]
-	conflictstyle = diff3
-	# sourcegear diffmerge - try it out
-	# also check out tf merge (comes with VS)
-	# tool = sgdm
-
-#[mergetool.sgdm]
-#	cmd = sgdm -merge -result=\"$MERGED\" \
-		#\"$LOCAL\" \"$BASE\" \"$REMOTE\"
-# git mergetool ...
-#
-
 # Remembers previous conflict resolutions after a rebase abort
 [rerere]
 	enabled = true
@@ -46,3 +43,20 @@
 	path = .gitconfig.project2
 # Allows specifying different emails in different projects.
 
+# NOTE : sgdm options breaking highlighting sorta kills it for me...
+# Putting it at bottom to minimize problem.
+# Also remember to check out tf merge (should come with VS)
+
+[diff]
+	tool = diffmerge
+
+[merge]
+	conflictstyle = diff3
+	tool = diffmerge
+
+[difftool.diffmerge]
+	cmd = sgdm \"$LOCAL\" \"$REMOTE\"
+
+[mergetool.diffmerge]
+	trustExitCode = true
+	cmd = sgdm -merge -result=\"$MERGED\" \"$LOCAL\" \"$BASE\" \"$REMOTE\"
