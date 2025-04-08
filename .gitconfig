@@ -10,6 +10,10 @@
 # Sadness : git-recover from EThomson is a bash script probably
 # not runnable on regular Windows. (starred on github anyway)
 
+[user]
+        name = styloplume
+        email = 14195928+styloplume@users.noreply.github.com
+
 [alias]
 	lol = log --oneline --decorate
 	graph = log --oneline --graph --decorate
