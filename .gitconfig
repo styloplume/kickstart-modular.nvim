@@ -15,6 +15,10 @@
         email = 14195928+styloplume@users.noreply.github.com
 
 [alias]
+	cun = config user.name
+	cue = config user.email
+	cgun = config --global user.name
+	cgue = config --global user.email
 	lol = log --oneline --decorate
 	graph = log --oneline --graph --decorate
 	refiso = reflog --date=iso
