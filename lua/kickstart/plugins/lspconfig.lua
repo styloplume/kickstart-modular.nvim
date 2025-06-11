@@ -256,6 +256,8 @@ return {
         'bashls',
         'awk_ls',
         'clang-format',
+        'black',
+        'isort',
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
