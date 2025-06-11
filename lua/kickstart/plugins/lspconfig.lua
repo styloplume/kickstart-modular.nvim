@@ -260,6 +260,7 @@ return {
         'isort',
         'shfmt',
         'shellcheck',
+        'ruff',
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
