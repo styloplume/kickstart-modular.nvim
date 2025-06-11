@@ -14,6 +14,8 @@ return {
       },
     },
     opts = {
+      -- uncomment to debug
+      -- log_level = vim.log.levels.DEBUG,
       notify_on_error = false,
       format_on_save = function(bufnr)
         -- Disable "format_on_save lsp_fallback" for languages that don't
@@ -33,10 +35,22 @@ return {
         lua = { 'stylua' },
         sh = { 'shfmt' },
         -- Conform can also run multiple formatters sequentially
-        python = { 'isort', 'black' },
+        python = {
+          'isort',
+          'black',
+        },
         --
         -- You can use 'stop_after_first' to run the first available formatter from the list
         -- javascript = { "prettierd", "prettier", stop_after_first = true },
+      },
+      formatters = {
+        isort = {
+          -- Override defaults (--line-ending \r\n) as it exits code 2 pretending not having an argument (Win11).
+          command = 'isort',
+          args = {
+            '-',
+          },
+        },
       },
     },
   },
