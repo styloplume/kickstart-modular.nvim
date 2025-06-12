@@ -259,7 +259,7 @@ return {
         'black',
         'isort',
         'shfmt',
-        -- 'shellcheck', -- cant tar @work so scoop it is.
+        -- 'shellcheck', -- cant tar @work so scoop it is. used by bashls.
         'ruff',
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }

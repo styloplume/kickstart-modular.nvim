@@ -34,6 +34,7 @@ return {
       formatters_by_ft = {
         lua = { 'stylua' },
         sh = { 'shfmt' },
+        -- Shellcheck unnecessary as bashls already calls it (successfully)
         -- Conform can also run multiple formatters sequentially
         python = {
           -- 'isort',
