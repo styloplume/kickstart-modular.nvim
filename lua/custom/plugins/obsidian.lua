@@ -1,4 +1,4 @@
-local active = false
+local active = true
 
 if active then
   return {
@@ -23,17 +23,9 @@ if active then
       },
       opts = {
         workspaces = {
-          -- {
-          --   name = 'personal',
-          --   path = '~/vaults/personal',
-          -- },
           {
-            name = 'work',
-            path = 'e:/users/wmn/obsidian/wmn',
-          },
-          {
-            name = 'home',
-            path = 'd:/Documents/obsidian',
+            name = 'workspace',
+            path = 'c:/obsidian',
           },
         },
 
