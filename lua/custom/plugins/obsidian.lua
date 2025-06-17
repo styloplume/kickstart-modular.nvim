@@ -21,7 +21,9 @@ end
 
 return {
   {
-    'epwalsh/obsidian.nvim',
+    -- out of date
+    -- 'epwalsh/obsidian.nvim',
+    'obsidian-nvim/obsidian.nvim',
     version = '*', -- recommended, use latest release instead of latest commit
     lazy = false,
     ft = 'markdown',
