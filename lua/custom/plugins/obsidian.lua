@@ -1,26 +1,5 @@
 -- NOTE : the whole rename thing is nice but will pose a pb if directory is opened elsewhere... Hard pass.
 
-local function getWorkspaces()
-  local retval = {}
-
-  local possible_workspaces = {
-    'e:/users/' .. os.getenv 'USERNAME' .. '/obsidian',
-    'd:/users/' .. os.getenv 'USERNAME' .. '/obsidian',
-    'c:/users/' .. os.getenv 'USERNAME' .. '/obsidian',
-  }
-
-  for i = 1, #possible_workspaces do
-    local ws_path = possible_workspaces[i]
-    local exists, errmsg = os.rename(ws_path, ws_path)
-
-    if exists then
-      table.insert(retval, { name = ws_path, path = ws_path })
-    end
-  end
-
-  return retval
-end
-
 return {
   {
     -- out of date
@@ -47,9 +26,7 @@ return {
     opts = {
       -- So instead of trying to detect dir existence, let's just give a list. Need to test @ home.
       workspaces = {
-        { name = 'work', path = 'e:/users/' .. os.getenv 'USERNAME' .. '/obsidian' },
-        { name = 'home', path = 'd:/users/' .. os.getenv 'USERNAME' .. '/obsidian' },
-        { name = 'lost', path = 'c:/users/' .. os.getenv 'USERNAME' .. '/obsidian' },
+        { name = 'default', path = os.getenv 'DEV_HOME_DIR' .. '/obsidian' },
       },
     },
 
