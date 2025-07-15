@@ -28,6 +28,7 @@ vim.o.breakindent = true
 
 -- Save undo history
 vim.o.undofile = true
+-- vim.o.verbose = 1
 
 -- Case-insensitive searching UNLESS \C or one or more capital letters in the search term
 vim.o.ignorecase = true
