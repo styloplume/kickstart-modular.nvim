@@ -5,7 +5,7 @@
 return {
   -- { 'stevearc/overseer.nvim', opts = {} },
   -- { 'akinsho/toggleterm.nvim', version = '*', config = true },
-  { 'ThePrimeagen/vim-be-good' },
+  -- { 'ThePrimeagen/vim-be-good' },
   -- {
   --   'S1M0N38/love2d.nvim',
   --   event = 'VeryLazy',
@@ -16,12 +16,12 @@ return {
   --     { '<leader>vs', '<cmd>LoveStop<cr>', ft = 'lua', desc = 'Stop LÖVE' },
   --   },
   -- },
-  {
-    'folke/zen-mode.nvim',
-    opts = {
-      -- your configuration comes here
-      -- or leave it empty to use the default settings
-      -- refer to the configuration section below
-    },
-  },
+  -- {
+  --   'folke/zen-mode.nvim',
+  --   opts = {
+  --     -- your configuration comes here
+  --     -- or leave it empty to use the default settings
+  --     -- refer to the configuration section below
+  --   },
+  -- },
 }

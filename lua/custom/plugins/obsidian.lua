@@ -1,5 +1,9 @@
 -- NOTE : the whole rename thing is nice but will pose a pb if directory is opened elsewhere... Hard pass.
 
+if true then
+  return { {} }
+end
+
 return {
   {
     -- out of date
