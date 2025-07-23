@@ -1,20 +1,21 @@
--- Windows setup
-* scoop_list.txt
-* python through chocolatey
+My regular setup :
+- python and pwsh through chocolatey
+- anything else through scoop (including wezterm-nightly and neovim)
 
-(because python shims in scoop are seen as pyenv shims by neovim)
+Python : scoop's shims are wrongly detected as pyenv shims in neovim.
+Pwsh : used by scoop so can't scoop update pwsh.
 
-
-
-
--- TODO : look up undo plugin to display undos as a tree
+TODO : undo plugin to display undos as a tree.
 
 ==============================================================================================================
+
+MSYS stuff :
 
 FIX Makefile for Telescope-fzf : 
 ifeq (,$(findstring $(MSYSTEM),MSYS UCRT64 CLANG64 CLANGARM64 CLANG32 MINGW64 MINGW32))
 
 ==============================================================================================================
+
 Very cool stuff found on @thingskatedid (twitter)
 ; some command | idot
 idot : alias to graphviz dot, outputs SVG, converted to PNG by rsvg-convert, then rendered IN terminal.
@@ -25,67 +26,13 @@ line.awk generates SVG
 isvg : alias rsvg-convert | icat
 icat : alias <terminal image rendering + options>
 
-That's seriously insanely cool.
+seriously cool.
 
 Other great thing : prompt colour changes with command return code.
 
 ==============================================================================================================
-https://www.reddit.com/r/git/comments/ou4vht/resolving_merge_conflict_when_merging_changes/
-VERY IMPORTANT help to resolve merge conflicts when syncing fork with kickstart.
 
-There are multiple types of merge conflicts like, competing line merge conflict, which arises when you and a user(committer to the same source repository) changes the same line, the second type is the same thing with files or folders.
-
-1. NOW if you have competing line merge conflicts, then:
-Check if you have the 'upstream' remote set: type this in the terminal of that repository: git remote this should display the remotes set in your repository, probably origin and upstream.
-
-ALSO READ the Important section below
-
-2. Type: git pull upstream <branch name> (probably <branch name> is main).
-
-3. Then go to your local system file where you've cloned your forked repository, look for conflict markers: <<<<<<, =======, >>>>>>>. Remove these, and do the changes you want to resolve the conflict.
-
-2. NOW if you are facing Removed file merge conflict then:
-Repeat steps 1 and 2 of heading 1
-
-ALSO READ the Important section below
-
-2. Go to the cloned repository and delete or change the file OR folder, according to the requirement.
-
-NOTE: Remember that while performing these STEPS you are in your cloned repository, and not in a subfolder(of the repo) in the terminal.
-
-Important: If you see only origin as the remote in step 1 of the heading 1, then add the upstream remote in your git repository; Just type this in the terminal: git remote add upstream <link of the source repository>. This step needs to be done inside the forked repository in the terminal.
-
-Thanks for Reading happy Coding!
-==============================================================================================================
-
-another note : new kickstart version apparently "breaks" the starting screen.
-restoring previous version makes it work again.
-=> gotta look at the differences and read the whole thing to try and understand what's up.
-
-other issue I've ran into again when restoring previous version :
-Mason's checkhealth error.
-The only info I've found is to delete nvim's cache (AppData/Local/Temp/nvim).
-Seems to fix it but seems somehow random ?
-
-Weird stuff. Switched from gcc to clang for treesitter and Mason's checkhealth started working again. Uh...
-
-also, I noticed :Lazy does not display its entire menu correctly unless I press a key.
-I'm having this issue with both versions of kickstart.
-
-very important note :
-require 'nvim-treesitter.install'.compilers = { "clang", "gcc" }
-mandatory at home to avoid Windows Defender flagging gcc compiled objects as infected.
-clang is the way apparently.
-
-weird, I thought I had edited this to add packages installed with choco at work.
-forgot to push ?
-
-Anyway, by now I must have bookmarked the nvim treesitter github page with its fix for
-windows defender finding viruses in parsers : simply force clang as the compiler instead of gcc.
-My init.lua here is doing it and everything's back to normal.
-Also, clang means installing LLVM (through choco :)
-
-if needed, use chocolatey to install things.
+very important note : force clang as primary compiler to avoid false positives from Windows Defender.
 
 pip install 'pynvim @ git+https://github.com/neovim/pynvim' for python 3.12 until version is officially released.
 january 11: pynvim current release does not work with python 3.12
