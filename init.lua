@@ -1,3 +1,6 @@
+-- useful to debug lsp
+-- vim.lsp.set_log_level(vim.log.levels.DEBUG)
+
 --[[
 
 =====================================================================
