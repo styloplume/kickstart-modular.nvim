@@ -1,0 +1,62 @@
+Chocolatey v2.5.0
+chocolatey 2.5.0
+chocolatey-compatibility.extension 1.0.0
+chocolatey-core.extension 1.4.0
+chocolatey-dotnetfx.extension 1.0.1
+chocolatey-visualstudio.extension 1.11.1
+chocolatey-windowsupdate.extension 1.0.5
+dotnetfx 4.8.0.20220524
+KB2919355 1.0.20160915
+KB2919442 1.0.20160915
+KB2999226 1.0.20181019
+KB3033929 1.0.5
+KB3035131 1.0.3
+KB3118401 1.0.5
+powershell-core 7.5.2
+pwsh 7.5.2
+python 3.13.5
+python3 3.13.5
+python313 3.13.5
+vcredist140 14.44.35211
+vcredist2015 14.0.24215.20170201
+visualstudio2019buildtools 16.11.48
+visualstudio2019-workload-vctools 1.0.1
+visualstudio-installer 2.0.3
+23 packages installed.
+Installed apps:
+
+[32;1mName               [0m[32;1m Version         [0m[32;1m Source  [0m[32;1m Updated            [0m[32;1m Info[0m
+[32;1m----               [0m [32;1m-------         [0m [32;1m------  [0m [32;1m-------            [0m [32;1m----[0m
+7zip                25.00            main     2025-07-07 10:32:37 
+ack                 3.9.0            main     2025-06-02 09:27:41 
+cacert              2025-07-15       main     2025-07-15 15:00:29 
+clink               1.7.21           main     2025-07-15 15:00:31 
+dark                3.14.1           main     2025-05-22 08:56:57 
+diffmerge           4.2.0            extras   2025-04-03 14:13:28 
+doxygen             1.14.0           main     2025-05-26 10:48:21 
+fd                  10.2.0           main     2025-03-10 11:06:08 
+gh                  2.75.1           main     2025-07-15 15:00:33 
+gimp                3.0.4            extras   2025-05-22 09:03:16 
+git                 2.50.1           main     2025-07-11 10:31:21 
+graphviz            13.1.0           main     2025-07-07 10:32:53 
+gzip                1.3.12           main     2025-03-11 11:00:04 
+innounp             2.64.5           main     2025-06-23 11:08:41 
+jq                  1.8.1            main     2025-07-07 10:32:38 
+less                679              main     2025-06-23 11:08:42 
+llvm                20.1.8           main     2025-07-11 10:35:38 
+love                11.5             extras   2025-03-12 09:54:14 
+lua-language-server 3.15.0           main     2025-07-09 13:02:33 
+lua51               5.1.5            versions 2025-03-11 10:55:52 
+make                4.4.1            main     2025-03-10 11:08:25 
+neovim              0.11.3           main     2025-07-15 15:00:41 
+nodejs              24.4.1           main     2025-07-16 09:50:42 
+perl                5.40.2.2         main     2025-06-11 12:48:34 
+ripgrep             14.1.1           main     2025-03-10 11:05:40 
+shellcheck          0.10.0           main     2025-05-28 12:45:09 
+universal-ctags     6.1.0            extras   2025-04-10 11:22:57 
+unzip               6.00             main     2025-03-11 10:55:54 
+vcredist2022        14.44.35211.0    extras   2025-07-11 10:36:56 
+vim-nightly         9.1.1552         versions 2025-07-16 09:50:52 
+wezterm-nightly     nightly-20250623 versions 2025-06-23 12:52:31 
+wget                1.21.4           main     2025-03-11 10:55:55 
+
