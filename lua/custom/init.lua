@@ -2,6 +2,9 @@
 
 vim.o.conceallevel = 1
 
+-- Force use of clang to build stuff
+require('nvim-treesitter.install').compilers = { 'clang', 'gcc' }
+
 --------------------------------------------------------------------------------------------
 --                                  Advent of neovim                                      --
 --------------------------------------------------------------------------------------------
@@ -83,9 +86,6 @@ end)
 --------------------------------------------------------------------------------------------
 --                                         Other                                          --
 --------------------------------------------------------------------------------------------
-
--- What was that again ? Compiler order preference ? I believe gcc causes issues on Windows.
-require('nvim-treesitter.install').compilers = { 'clang', 'gcc' }
 
 if false then
   -- Harpoon config (copied from github)
