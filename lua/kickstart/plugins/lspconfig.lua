@@ -185,7 +185,7 @@ return {
         virtual_text = {
           source = 'if_many',
           spacing = 2,
-          -- current_line = true,
+          current_line = true,
           -- virt_text_pos = 'right_align',
           format = function(diagnostic)
             local diagnostic_message = {
