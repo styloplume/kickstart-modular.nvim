@@ -11,7 +11,7 @@ TODO : undo plugin to display undos as a tree.
 
 MSYS stuff :
 
-FIX Makefile for Telescope-fzf : 
+FIX Makefile for Telescope-fzf in MSYS : 
 ifeq (,$(findstring $(MSYSTEM),MSYS UCRT64 CLANG64 CLANGARM64 CLANG32 MINGW64 MINGW32))
 
 ==============================================================================================================
