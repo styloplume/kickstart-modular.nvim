@@ -1,8 +1,7 @@
-local custom = require 'custom'
-
 local plugin = { {} }
-
-if custom.cmake then
+local custom = require 'custom'
+local load_it = custom.plugins['cmake']
+if load_it ~= nil and load_it then
   plugin = {
     {
       'Civitasv/cmake-tools.nvim',

@@ -1,7 +1,13 @@
 -- Retrieve custom module to pilot some things right from the start.
 local custom = require 'custom'
-custom.obsidian = true
 
+-- Insert plugin names to be loaded (or not) in custom part.
+custom.plugins = {
+  obsidian = true,
+  oil = true,
+}
+
+-- Quickly turn logging ON or OFF (should be some kind of keybind)
 vim.lsp.set_log_level(vim.log.levels.OFF)
 
 --[[

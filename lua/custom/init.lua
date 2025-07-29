@@ -2,19 +2,8 @@
 
 -- How about making this return a module with functions ?
 local module = {}
-
-module.cmake = false
-module.harpoon = false
-module.obsidian = false
-module.oil = true
-module.vimtex = false
-
-module.overseer = false
-module.toggleterm = false
-module.vimbegood = false
-module.zenmode = false
-
-module.love2d = false
+-- To be filled by root init.lua - table containing key/values such as <plugin> = bool
+module.plugins = {}
 
 function module.Setup()
   vim.o.conceallevel = 1
@@ -105,7 +94,8 @@ function module.Setup()
   --------------------------------------------------------------------------------------------
 
   local custom = require 'custom'
-  if custom.harpoon then
+  local load_it = custom.plugins['harpoon']
+  if load_it ~= nil and load_it then
     -- Harpoon config (copied from github)
     local harpoon = require 'harpoon'
 

@@ -1,8 +1,7 @@
-local custom = require 'custom'
-
 local plugin = { {} }
-
-if custom.obsidian then
+local custom = require 'custom'
+local load_it = custom.plugins['obsidian']
+if load_it ~= nil and load_it then
   plugin = {
     {
       -- out of date

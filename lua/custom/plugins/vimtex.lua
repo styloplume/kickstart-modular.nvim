@@ -1,8 +1,7 @@
-local custom = require 'custom'
-
 local plugin = { {} }
-
-if custom.vimtex then
+local custom = require 'custom'
+local load_it = custom.plugins['vimtex']
+if load_it ~= nil and load_it then
   plugin = {
     {
       'lervag/vimtex',
