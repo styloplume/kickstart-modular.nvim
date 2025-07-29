@@ -1,11 +1,15 @@
-if true then
-  return { {} }
+local custom = require 'custom'
+
+local plugin = { {} }
+
+if custom.harpoon then
+  plugin = {
+    {
+      'ThePrimeagen/harpoon',
+      branch = 'harpoon2',
+      dependencies = { 'nvim-lua/plenary.nvim' },
+    },
+  }
 end
 
-return {
-  {
-    'ThePrimeagen/harpoon',
-    branch = 'harpoon2',
-    dependencies = { 'nvim-lua/plenary.nvim' },
-  },
-}
+return plugin

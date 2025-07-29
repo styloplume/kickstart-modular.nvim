@@ -23,7 +23,7 @@
 	graph = log --oneline --graph --decorate
 	refiso = reflog --date=iso
 	refpre = reflog --date=iso --pretty
-	wdiff = diff --word-diff
+	wdiff = diff -w --word-diff --histogram --color
 	blaccc = blame -C -C -C
 
 [color.decorate]

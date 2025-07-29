@@ -1,5 +1,8 @@
--- useful to debug lsp
--- vim.lsp.set_log_level(vim.log.levels.DEBUG)
+-- Retrieve custom module to pilot some things right from the start.
+local custom = require 'custom'
+custom.obsidian = true
+
+vim.lsp.set_log_level(vim.log.levels.OFF)
 
 --[[
 
@@ -109,7 +112,7 @@ require 'lazy-bootstrap'
 require 'lazy-plugins'
 
 -- [[ Custom settings ]]
-require 'custom'
+custom.Setup()
 
 --
 -- The line beneath this is called `modeline`. See `:help modeline`
