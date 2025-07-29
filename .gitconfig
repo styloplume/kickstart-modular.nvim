@@ -1,55 +1,48 @@
-# NOTE : On git configuration
-# System wide config @ ?
-# User global config @ c:/users/<user>/.gitconfig
-# Repo local config  @ .git/config
-# .gitconfig is used for shared customization
-# (can be committed, holds no sensitive info)
-# requires manual include for each clone of a repo :
-# > git config --local include.path ../.gitconfig
+# Source 1 : https://blog.gitbutler.com/how-git-core-devs-configure-git/
+# Source 2 : https://www.youtube.com/watch?v=DZI0Zl-1JqQ
+# Source 2b: https://github.com/ethomson/talks/blob/main/2025-01-30-You_Dont_Know_Git.pdf
 
-# Sadness : git-recover from EThomson is a bash script probably
-# not runnable on regular Windows. (starred on github anyway)
+# Basically started from a copy of 1 and inserted stuff from 2/2b.
 
 [user]
         name = styloplume
         email = 14195928+styloplume@users.noreply.github.com
 
+# NOTE : .git/config local to each repo
+#        ~/.gitconfig global to each user
+# Must include this file manually with :
+# > git config --local include.path ../.gitconfig
+
+# ethomson
+
 [alias]
-	cun = config user.name
-	cue = config user.email
-	cgun = config --global user.name
-	cgue = config --global user.email
 	lol = log --oneline --decorate
 	graph = log --oneline --graph --decorate
 	refiso = reflog --date=iso
 	refpre = reflog --date=iso --pretty
-	wdiff = diff -w --word-diff --histogram --color
+	wdiff = diff -w --word-diff
 	blaccc = blame -C -C -C
 
 [color.decorate]
-	branch = 45
-	HEAD = "#00ffff" bold
-# Windows MINTTY install of git offers more colours than default install
+	branch = 41
+	HEAD = "#ff00ff" bold
+	# Git for Windows with Mintty should install more colors than available with cmd.exe
+
+# git grep : don't forget it.
 
 [grep]
 	lineNumber = true
 	patternType = perl
 
-# Remembers previous conflict resolutions after a rebase abort
-[rerere]
-	enabled = true
-
-[core]
-	#excludesfile = /users/username/.gitignore
+# git recover : bash script, probably not compatible with Windows :/
+# retrieves orphan blobs, can git cat-file <hash> etc.
+# useful to retrieve something that was at least staged (indexed) and lost.
 
 # conditional includes to separate projects or work stuff.
-[user]
-	#name = <name>
 [includeif "gitdir:/users/user/project/"]
 	path = .gitconfig.project
 [includeif "gitdir:/users/user/project2/"]
 	path = .gitconfig.project2
-# Allows specifying different emails in different projects.
 
 # clearly makes git better
 
@@ -60,12 +53,15 @@
 [tag]
         sort = version:refname
 [init]
-        defaultBranch = main
+        defaultBranch = master
 [diff]
         algorithm = histogram
         colorMoved = plain
         mnemonicPrefix = true
         renames = true
+        # ethomson
+        tool = sgdm
+
 [push]
         default = simple
         autoSetupRemote = true
@@ -94,28 +90,21 @@
 # a matter of taste (uncomment if you dare)
 
 [core]
-        # fsmonitor = true
+        fsmonitor = true
         # untrackedCache = true
 [merge]
         # (just 'diff3' if git version < 2.3)
-        # conflictstyle = zdiff3 
+        conflictstyle = zdiff3
+        # ethomson
+        tool = sgdm
+
 [pull]
-        # rebase = true
+        rebase = true
 
-# NOTE : sgdm options breaking highlighting sorta kills it for me...
-# Putting it at bottom to minimize problem.
-# Also remember to check out tf merge (should come with VS)
-
-[diff]
-	tool = diffmerge
-
-[merge]
-	conflictstyle = diff3
-	tool = diffmerge
-
-[difftool.diffmerge]
+# ethomson
+[difftool.sgdm]
 	cmd = sgdm \"$LOCAL\" \"$REMOTE\"
 
-[mergetool.diffmerge]
+[mergetool.sgdm]
 	trustExitCode = true
 	cmd = sgdm -merge -result=\"$MERGED\" \"$LOCAL\" \"$BASE\" \"$REMOTE\"
