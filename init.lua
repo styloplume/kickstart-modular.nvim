@@ -8,7 +8,7 @@ custom.plugins = {
 }
 
 -- Quickly turn logging ON or OFF (should be some kind of keybind)
-vim.lsp.set_log_level(vim.log.levels.OFF)
+vim.lsp.log.set_level(vim.log.levels.OFF)
 
 --[[
 
