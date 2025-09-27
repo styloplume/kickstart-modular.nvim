@@ -269,6 +269,7 @@ return {
         'bashls',
         'shfmt', -- dont forget shellcheck via scoop if no tar
         -- 'awk_ls',
+        'powershell-editor-services',
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 

@@ -5,6 +5,7 @@ local custom = require 'custom'
 custom.plugins = {
   obsidian = true,
   oil = true,
+  powershell = true,
 }
 
 -- Quickly turn logging ON or OFF (should be some kind of keybind)
