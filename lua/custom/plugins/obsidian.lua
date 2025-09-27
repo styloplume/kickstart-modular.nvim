@@ -1,6 +1,10 @@
 local plugin = { {} }
 local custom = require 'custom'
 local load_it = custom.plugins['obsidian']
+local obsidian_dir = os.getenv 'OBSIDIAN_DIR'
+if obsidian_dir == nil then
+  load_it = false
+end
 if load_it ~= nil and load_it then
   plugin = {
     {
@@ -30,7 +34,7 @@ if load_it ~= nil and load_it then
         legacy_commands = false,
         -- no easy way to check dir exists (renaming is cute but relies on NOT pointing to the dir from anywhere else)
         workspaces = {
-          { name = 'default', path = os.getenv 'DEV_HOME_DIR' .. '/obsidian' },
+          { name = 'default', path = obsidian_dir .. '/obsidian' },
         },
       },
 
