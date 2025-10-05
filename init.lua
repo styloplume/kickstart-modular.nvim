@@ -1,6 +1,9 @@
 -- Retrieve custom module to pilot some things right from the start.
 local custom = require 'custom'
 
+-- Tell wezterm we're here
+custom.set_user_var('IS_NVIM', true)
+
 -- Insert plugin names to be loaded (or not) in custom part.
 custom.plugins = {
   obsidian = true,

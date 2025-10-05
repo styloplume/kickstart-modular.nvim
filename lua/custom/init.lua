@@ -107,4 +107,29 @@ function module.Setup()
   end
 end
 
+-- Importing base64/set_user_var from folke/dot/nvim/lua/util/init.lua
+-- to define IS_NVIM user var for wezterm's panes to pass keys to nvim.
+---@param data string
+function module.base64(data)
+  data = tostring(data)
+  local bit = require 'bit'
+  local b64chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'
+  local b64, len = '', #data
+  for i = 1, len, 3 do
+    local a, b, c = data:byte(i, i + 2)
+    local buffer = bit.bor(bit.lshift(a, 16), bit.lshift(b or 0, 8), c or 0)
+    for j = 0, 3 do
+      local index = bit.rshift(buffer, (3 - j) * 6) % 64
+      b64 = b64 .. b64chars:sub(index + 1, index + 1)
+    end
+  end
+  local padding = (3 - len % 3) % 3
+  b64 = b64:sub(1, -1 - padding) .. ('='):rep(padding)
+  return b64
+end
+
+function module.set_user_var(key, value)
+  io.write(string.format('\027]1337;SetUserVar=%s=%s\a', key, module.base64(value)))
+end
+
 return module
