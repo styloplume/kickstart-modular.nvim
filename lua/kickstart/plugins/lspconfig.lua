@@ -229,6 +229,7 @@ return {
               '--clang-tidy',
             },
           },
+          sqlfluff = {},
           pyright = {},
           lua_ls = {
             -- cmd = { ... },
