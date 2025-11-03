@@ -4,6 +4,13 @@ local custom = require 'custom'
 -- Tell wezterm we're here
 custom.set_user_var('IS_NVIM', true)
 
+-- Also tell wezterm we're leaving
+vim.api.nvim_create_autocmd('VimLeave', {
+  callback = function()
+    custom.set_user_var('IS_NVIM', false)
+  end,
+})
+
 -- Insert plugin names to be loaded (or not) in custom part.
 custom.plugins = {
   obsidian = true,
