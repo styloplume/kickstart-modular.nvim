@@ -43,6 +43,7 @@ return {
           'ruff_format',
           'ruff_organize_imports',
         },
+        rust = { 'rustfmt' },
         sql = { 'sqlfluff' },
         --
         -- You can use 'stop_after_first' to run the first available formatter from the list

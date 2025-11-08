@@ -231,6 +231,8 @@ return {
           },
           sqlfluff = {},
           pyright = {},
+          ruff = {},
+          rust_analyzer = {},
           lua_ls = {
             -- cmd = { ... },
             -- filetypes = { ... },
@@ -267,6 +269,8 @@ return {
         'stylua',
         'clang-format',
         'ruff',
+        'rust_analyzer',
+        'prettier',
         'bashls',
         'shfmt', -- dont forget shellcheck via scoop if no tar
         -- 'awk_ls',
