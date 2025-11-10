@@ -233,6 +233,7 @@ return {
           pyright = {},
           ruff = {},
           rust_analyzer = {},
+          prettier = { filetypes = { 'html' } },
           lua_ls = {
             -- cmd = { ... },
             -- filetypes = { ... },
@@ -275,6 +276,7 @@ return {
         'shfmt', -- dont forget shellcheck via scoop if no tar
         -- 'awk_ls',
         'powershell-editor-services',
+        'prettier',
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
