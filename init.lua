@@ -2,7 +2,7 @@
 local custom = require 'custom'
 
 -- Tell wezterm we're here
-custom.set_user_var('IS_NVIM', true)
+custom.wezterm()
 
 -- Also tell wezterm we're leaving
 vim.api.nvim_create_autocmd('VimLeave', {
