@@ -11,6 +11,9 @@ vim.api.nvim_create_autocmd('VimLeave', {
   end,
 })
 
+-- enable rust analyzer
+vim.lsp.enable 'rust_analyzer'
+
 -- Insert plugin names to be loaded (or not) in custom part.
 custom.plugins = {
   obsidian = true,

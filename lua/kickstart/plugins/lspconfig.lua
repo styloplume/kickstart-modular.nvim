@@ -232,7 +232,7 @@ return {
           sqlfluff = {},
           pyright = {},
           ruff = {},
-          rust_analyzer = {},
+          -- moving it to rustup -- rust_analyzer = {},
           prettier = { filetypes = { 'html' } },
           lua_ls = {
             -- cmd = { ... },
@@ -270,7 +270,7 @@ return {
         'stylua',
         'clang-format',
         'ruff',
-        'rust_analyzer',
+        -- moving to rustup -- 'rust_analyzer',
         'prettier',
         'bashls',
         'shfmt', -- dont forget shellcheck via scoop if no tar
