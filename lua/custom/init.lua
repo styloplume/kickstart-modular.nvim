@@ -156,7 +156,15 @@ function module.wezterm()
     end
   end
 
+  -- When loading nvim, tell wezterm we're here.
   module.set_user_var('IS_NVIM', true)
+  -- Also tell wezterm we're leaving.
+  vim.api.nvim_create_autocmd('VimLeave', {
+    callback = function()
+      module.set_user_var('IS_NVIM', false)
+    end,
+  })
+  -- Allows seamless pane movement with or without nvim.
 
   -- Move to window using the movement keys
   for key, dir in pairs(nav) do

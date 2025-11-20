@@ -4,21 +4,14 @@ local custom = require 'custom'
 -- Tell wezterm we're here
 custom.wezterm()
 
--- Also tell wezterm we're leaving
-vim.api.nvim_create_autocmd('VimLeave', {
-  callback = function()
-    custom.set_user_var('IS_NVIM', false)
-  end,
-})
-
--- enable rust analyzer
+-- enable rust analyzer (installed with rustup add component rust-analyzer)
 vim.lsp.enable 'rust_analyzer'
 
 -- Insert plugin names to be loaded (or not) in custom part.
 custom.plugins = {
-  obsidian = true,
+  obsidian = false,
   oil = true,
-  powershell = true,
+  powershell = false,
 }
 
 -- Quickly turn logging ON or OFF (should be some kind of keybind)
