@@ -9,9 +9,9 @@ vim.lsp.enable 'rust_analyzer'
 
 -- Insert plugin names to be loaded (or not) in custom part.
 custom.plugins = {
-  minuet = false, -- testing
-  obsidian = false,
   oil = true,
+  minuet = false,
+  obsidian = false,
   powershell = false,
 }
 

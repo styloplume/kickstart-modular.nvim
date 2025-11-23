@@ -8,12 +8,6 @@ if load_it ~= nil and load_it then
       config = function()
         require('minuet').setup {
           -- Your configuration options here
-          cmp = {
-            enable_auto_complete = false,
-          },
-          blink = {
-            enable_auto_complete = false,
-          },
           virtualtext = {
             auto_trigger_ft = {},
             keymap = {
@@ -32,9 +26,9 @@ if load_it ~= nil and load_it then
             },
           },
           lsp = {
-            enabled_ft = {},
+            enabled_ft = { 'lua' },
             -- Enables automatic completion triggering using `vim.lsp.completion.enable`
-            enabled_auto_trigger_ft = {},
+            enabled_auto_trigger_ft = { 'lua' },
           },
           provider_options = {
             codestral = {
@@ -48,6 +42,36 @@ if load_it ~= nil and load_it then
       end,
     },
     { 'nvim-lua/plenary.nvim' },
+    -- optional, if you are using virtual-text frontend, blink is not required.
+    {
+      'Saghen/blink.cmp',
+      config = function()
+        require('blink-cmp').setup {
+          keymap = {
+            -- Manually invoke minuet completion.
+            ['<A-y>'] = require('minuet').make_blink_map(),
+          },
+          sources = {
+            -- Enable minuet for autocomplete
+            default = { 'lsp', 'path', 'buffer', 'snippets', 'minuet' },
+            -- For manual completion only, remove 'minuet' from default
+            providers = {
+              minuet = {
+                name = 'minuet',
+                module = 'minuet.blink',
+                async = true,
+                -- Should match minuet.config.request_timeout * 1000,
+                -- since minuet.config.request_timeout is in seconds
+                timeout_ms = 3000,
+                score_offset = 50, -- Gives minuet higher priority among suggestions
+              },
+            },
+          },
+          -- Recommended to avoid unnecessary request
+          completion = { trigger = { prefetch_on_insert = false } },
+        }
+      end,
+    },
   }
 end
 
