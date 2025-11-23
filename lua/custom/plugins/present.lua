@@ -5,7 +5,7 @@ if vim.uv.fs_stat(plugin_path) then
     {
       dir = plugin_path,
       config = function()
-        require 'present'
+        -- require 'present'
       end,
     },
   }
