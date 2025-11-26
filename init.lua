@@ -5,12 +5,24 @@ local custom = require 'custom'
 custom.wezterm()
 
 -- enable rust analyzer (installed with rustup add component rust-analyzer)
+vim.lsp.config('rust_analyzer', {
+  -- Server-specific settings. See `:help lsp-quickstart`
+  settings = {
+    ['rust-analyzer'] = {
+      completion = {
+        callable = {
+          snippets = 'add_parentheses',
+        },
+      },
+    },
+  },
+})
 vim.lsp.enable 'rust_analyzer'
 
 -- Insert plugin names to be loaded (or not) in custom part.
 custom.plugins = {
   oil = true,
-  minuet = false,
+  minuet = true,
   obsidian = false,
   powershell = false,
 }
