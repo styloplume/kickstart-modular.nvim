@@ -11,10 +11,15 @@ if load_it ~= nil and load_it then
           -- Because I want to stick to blink, I will not :
           -- * configure virtual text
           -- * built-in completion, mini, or LSP
+          provider = 'codestral',
+          auto_space = true,
           provider_options = {
             codestral = {
+              model = 'codestral-latest',
+              fim = true,
               optional = {
-                max_tokens = 256,
+                temperature = 0.0,
+                max_tokens = 128,
                 stop = { '\n\n' },
               },
             },

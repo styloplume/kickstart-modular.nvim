@@ -85,6 +85,9 @@ return {
             },
           },
         },
+        keyword = {
+          prepend_space = true,
+        },
       },
 
       sources = {
