@@ -274,7 +274,6 @@ return {
         'prettier',
         'bashls',
         'shfmt', -- dont forget shellcheck via scoop if no tar
-        -- 'awk_ls',
         'powershell-editor-services',
         'prettier',
       })
