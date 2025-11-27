@@ -1,6 +1,17 @@
 -- Retrieve custom module to pilot some things right from the start.
 local custom = require 'custom'
 
+vim.api.nvim_create_user_command('FixCRLF', function()
+  -- Set buffer to LF
+  vim.opt_local.fileformat = 'unix'
+
+  -- Remove DOS carriage returns
+  vim.cmd [[%s/\r$//e]]
+
+  -- Save file
+  vim.cmd 'write'
+end, {})
+
 vim.api.nvim_create_autocmd('FileType', {
   pattern = { 'sh', 'bash', 'zsh', 'awk', 'python' },
   callback = function()
