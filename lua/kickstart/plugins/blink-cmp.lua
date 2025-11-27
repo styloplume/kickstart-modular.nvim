@@ -86,7 +86,7 @@ return {
           },
         },
         keyword = {
-          prepend_space = true,
+          -- dont know where that came from -- prepend_space = true,
         },
       },
 
