@@ -1,3 +1,7 @@
+-- TODO : pcall(require, "work") to detect if work vs home.
+-- home : use codestral.
+-- work : use work.bring_ai()
+
 local plugin = { {} }
 local custom = require 'custom'
 local load_it = custom.plugins['minuet']

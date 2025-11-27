@@ -7,6 +7,7 @@ work.lua
 
 spell/
 lazy-lock.json
+package-lock.json
 
 tst/cpp/build/
 tst/cpp/.cache/

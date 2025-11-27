@@ -25,6 +25,7 @@ custom.plugins = {
   minuet = true,
   obsidian = false,
   powershell = false,
+  sidekick = false,
 }
 
 -- Quickly turn logging ON or OFF (should be some kind of keybind)
