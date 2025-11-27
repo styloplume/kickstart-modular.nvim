@@ -1,6 +1,13 @@
 -- Retrieve custom module to pilot some things right from the start.
 local custom = require 'custom'
 
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = { 'sh', 'bash', 'zsh', 'awk', 'python' },
+  callback = function()
+    vim.opt_local.fileformat = 'unix'
+  end,
+})
+
 -- Tell wezterm we're here
 custom.wezterm()
 
