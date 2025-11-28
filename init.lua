@@ -1,6 +1,17 @@
 -- Retrieve custom module to pilot some things right from the start.
 local custom = require 'custom'
 
+-- Insert plugin names to be loaded (or not) in custom part.
+custom.plugins = {
+  oil = true,
+  minuet = true,
+  vimbegood = true,
+}
+
+-- Quickly turn logging ON or OFF (should be some kind of keybind)
+vim.lsp.log.set_level(vim.log.levels.OFF)
+
+-- Let's fix CRLF when needed
 vim.api.nvim_create_user_command('FixCRLF', function()
   -- Set buffer to LF
   vim.opt_local.fileformat = 'unix'
@@ -12,6 +23,7 @@ vim.api.nvim_create_user_command('FixCRLF', function()
   vim.cmd 'write'
 end, {})
 
+-- And force CRLF when it makes sense
 vim.api.nvim_create_autocmd('FileType', {
   pattern = { 'sh', 'bash', 'zsh', 'awk', 'python' },
   callback = function()
@@ -36,18 +48,6 @@ vim.lsp.config('rust_analyzer', {
   },
 })
 vim.lsp.enable 'rust_analyzer'
-
--- Insert plugin names to be loaded (or not) in custom part.
-custom.plugins = {
-  oil = true,
-  minuet = true,
-  obsidian = false,
-  powershell = false,
-  sidekick = false,
-}
-
--- Quickly turn logging ON or OFF (should be some kind of keybind)
-vim.lsp.log.set_level(vim.log.levels.OFF)
 
 vim.g.loaded_ruby_provider = 0
 vim.g.loaded_perl_provider = 0
