@@ -34,6 +34,8 @@ vim.api.nvim_create_autocmd('FileType', {
 -- Tell wezterm we're here
 custom.wezterm()
 
+-- TODO : try migrating Lua LS to this, maybe even clangd.
+
 -- enable rust analyzer (installed with rustup add component rust-analyzer)
 vim.lsp.config('rust_analyzer', {
   -- Server-specific settings. See `:help lsp-quickstart`
