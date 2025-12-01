@@ -2,11 +2,7 @@
 -- home : use codestral.
 -- work : use work.bring_ai()
 
-local plugin = { {} }
-local custom = require 'custom'
-local load_it = custom.plugins['minuet']
-if load_it ~= nil and load_it then
-  plugin = {
+  return {
     {
       'milanglacier/minuet-ai.nvim',
       config = function()
@@ -35,6 +31,3 @@ if load_it ~= nil and load_it then
     { 'nvim-lua/plenary.nvim' },
     -- blink optional but also installed so we'll set it up there.
   }
-end
-
-return plugin

@@ -1,8 +1,4 @@
-local plugin = { {} }
-local custom = require 'custom'
-local load_it = custom.plugins['oil']
-if load_it ~= nil and load_it then
-  plugin = {
+return {
     {
       'stevearc/oil.nvim',
       ---@module 'oil'
@@ -15,6 +11,3 @@ if load_it ~= nil and load_it then
       lazy = false,
     },
   }
-end
-
-return plugin

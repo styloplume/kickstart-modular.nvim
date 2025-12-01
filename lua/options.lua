@@ -3,6 +3,26 @@
 -- NOTE: You can change these options as you wish!
 --  For more options, you can see `:help option-list`
 
+vim.o.conceallevel = 1
+
+-- We have vim-sleuth going, have to play around with this.
+-- vim.opt.shiftwidth = 4
+
+-- Highlight builtin functions with a specific color
+-- vim.cmd [[hi @function.builtin guifg=yellow]]
+
+vim.g.loaded_ruby_provider = 0
+vim.g.loaded_perl_provider = 0
+
+-- Set <space> as the leader key
+-- See `:help mapleader`
+--  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
+vim.g.mapleader = ' '
+vim.g.maplocalleader = ' '
+
+-- Set to true if you have a Nerd Font installed and selected in the terminal
+vim.g.have_nerd_font = true
+
 -- Make line numbers default
 vim.o.number = true
 -- You can also add relative line numbers, to help with jumping.

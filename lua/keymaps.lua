@@ -1,6 +1,41 @@
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
 
+-- Oil keymap to view file directory
+vim.keymap.set('n', '-', '<cmd>Oil<CR>')
+
+-- Start a terminal with a job id
+local job_id = 0
+
+vim.keymap.set('n', '<space>st', function()
+  vim.cmd.vnew() -- new vertical thing
+  vim.cmd.term() -- with a terminal
+  vim.cmd.wincmd 'J' -- at the bottom
+  vim.api.nvim_win_set_height(0, 15)
+
+  -- vim.api.nvim_open_win(...) (check help) to open a floating term instead
+
+  job_id = vim.bo.channel
+end)
+
+-- Send instruction to terminal through job id
+vim.keymap.set('n', '<space>example', function()
+  -- make
+  -- go build, go test ./whatever
+  vim.fn.chansend(job_id, { 'ls -al\r\n' })
+end)
+
+-- Source current file
+vim.keymap.set('n', '<space>xf', '<cmd>source %<CR>')
+-- Source current line
+vim.keymap.set('n', '<space>xl', ':.lua<CR>')
+-- Source current visual block
+vim.keymap.set('v', '<space>xb', ':lua<CR>')
+
+-- Move down/up through the quickfix list
+vim.keymap.set('n', '<M-j>', '<cmd>cnext<CR>')
+vim.keymap.set('n', '<M-k>', '<cmd>cprev<CR>')
+
 vim.keymap.set('n', '<leader>tf', '<cmd>PlenaryBustedFile %<CR>')
 
 -- Clear highlights on search when pressing <Esc> in normal mode
