@@ -23,10 +23,10 @@ return require('lazy').setup(
         return true
       end),
       load_group('extra', function(name)
-        return state.enable_extra[name] ~= false -- nil -> installed ?
+        return state.enable_extra[name] ~= false
       end),
       load_group('testing', function(name)
-        return state.enable_testing[name] == true -- nil -> not installed ?
+        return state.enable_testing[name] == true
       end),
     })
     :flatten()

@@ -5,10 +5,6 @@
 
 local plugins = {}
 
-table.insert(plugins, { 'stevearc/overseer.nvim', opts = {} })
-table.insert(plugins, { 'akinsho/toggleterm.nvim', version = '*', config = true })
-table.insert(plugins, { 'ThePrimeagen/vim-be-good' })
-table.insert(plugins, { 'folke/zen-mode.nvim', opts = {} })
 table.insert(plugins, {
   'S1M0N38/love2d.nvim',
   event = 'VeryLazy',

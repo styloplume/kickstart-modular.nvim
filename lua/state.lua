@@ -4,10 +4,7 @@ local M = {}
 M.enable_core = {}
 
 -- EXTRA plugins: ON by default
-M.enable_extra = {
-  oil = true,
-  minuet = true,
-}
+M.enable_extra = {}
 
 -- TESTING plugins: OFF by default
 M.enable_testing = {}
