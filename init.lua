@@ -37,8 +37,9 @@ require 'lazy-bootstrap'
 -- [[ Configure and install plugins ]]
 require 'plugins'
 
--- [[ Custom settings ]]
-require('custom').Setup()
+-- TODO : find a home for this
+-- Force use of clang to build stuff
+require('nvim-treesitter.install').compilers = { 'clang', 'gcc' }
 
 --
 -- The line beneath this is called `modeline`. See `:help modeline`
