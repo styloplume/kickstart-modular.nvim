@@ -7,6 +7,8 @@ M.enable_core = {}
 M.enable_extra = {}
 
 -- TESTING plugins: OFF by default
-M.enable_testing = {}
+M.enable_testing = {
+  work = true,
+}
 
 return M
