@@ -1,6 +1,13 @@
 local M = {}
 
-M.capabilities = require('blink-cmp').get_lsp_capabilities()
+local blink_caps = require('blink.cmp').get_lsp_capabilities()
+
+---@class ExtendedCapabilities: lsp.ClientCapabilities
+local caps = vim.tbl_deep_extend('force', {}, blink_caps, {
+  offsetEncoding = { 'utf-8' },
+})
+
+M.capabilities = caps
 
 function M.on_attach(client, bufnr)
   local map = vim.keymap.set

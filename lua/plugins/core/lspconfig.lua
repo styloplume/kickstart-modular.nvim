@@ -1,5 +1,10 @@
+-- NOTE :
 -- If you're wondering about lsp vs treesitter, you can check out the wonderfully
 -- and elegantly composed help section, `:help lsp-vs-treesitter`
+
+-- NOTE : about Lazy loading
+-- { 'plugin', opts = {} } calls setup()
+-- { 'plugin' } does not call setup()
 
 return {
   {
@@ -8,7 +13,7 @@ return {
       'mason-org/mason.nvim',
       'mason-org/mason-lspconfig.nvim',
       'WhoIsSethDaniel/mason-tool-installer.nvim',
-      'j-hui/fidget.nvim', -- Useful status updates for LSP.
+      { 'j-hui/fidget.nvim', opts = {} }, -- Useful status updates for LSP.
       'saghen/blink.cmp', -- Allows extra capabilities provided by blink.cmp
     },
     config = function()
@@ -115,17 +120,6 @@ return {
             return diagnostic_message[diagnostic.severity]
           end,
         },
-      }
-
-      ---------------------------------------
-      -- Blink capabilities: shared for all servers
-      ---------------------------------------
-
-      local capabilities = require('blink.cmp').get_lsp_capabilities()
-
-      -- Expose them globally for all server modules
-      package.loaded['lsp.defaults'] = {
-        capabilities = capabilities,
       }
     end,
   },
