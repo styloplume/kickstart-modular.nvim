@@ -1,3 +1,5 @@
+require 'lazy-bootstrap'
+
 local state = require 'state'
 
 local function load_group(group, check)
@@ -29,7 +31,7 @@ return require('lazy').setup(
         return state.enable_testing[name] == true
       end),
     })
-    :flatten()
+    :flatten() -- should work with 0..2, depending on how plugins are returned.
     :totable(),
   {
     ui = {

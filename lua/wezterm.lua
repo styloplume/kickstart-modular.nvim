@@ -66,4 +66,7 @@ function module.wezterm()
   end
 end
 
+-- No need to call this from init.lua, just run it here.
+module.wezterm()
+
 return module
