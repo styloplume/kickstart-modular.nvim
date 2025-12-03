@@ -18,7 +18,7 @@ local function load_group(group, check)
   return specs
 end
 
-return require('lazy').setup(
+require('lazy').setup(
   vim
     .iter({
       load_group('core', function(_)
@@ -58,3 +58,6 @@ return require('lazy').setup(
     },
   }
 )
+
+-- Now that plugins are loaded by lazy, let's give priority to clang.
+require('nvim-treesitter.install').compilers = { 'clang', 'gcc' }

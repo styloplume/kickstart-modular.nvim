@@ -19,11 +19,11 @@ vim.keymap.set('n', '<space>st', function()
 end)
 
 -- Send instruction to terminal through job id
-vim.keymap.set('n', '<space>example', function()
+vim.keymap.set('n', '<space>i', function()
   -- make
   -- go build, go test ./whatever
   vim.fn.chansend(job_id, { 'ls -al\r\n' })
-end)
+end, { desc = 'Send instruction to terminal' })
 
 -- Source current file
 vim.keymap.set('n', '<space>xf', '<cmd>source %<CR>')

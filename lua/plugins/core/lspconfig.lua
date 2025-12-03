@@ -20,7 +20,19 @@ return {
       ---------------------------------------------
       -- Mason Setup
       ---------------------------------------------
-      require('mason').setup()
+      require('mason').setup {
+        -- registries = {
+        --   'github:mason-org/mason-registry', -- keep the official registry
+        -- },
+        -- providers = {
+        --   'node', -- keep only the providers you actually want
+        --   'npm',
+        --   'python',
+        --   'pip',
+        --   'cargo',
+        --   'python venv',
+        -- },
+      }
       require('mason-lspconfig').setup {
         auto_install = true,
       }
