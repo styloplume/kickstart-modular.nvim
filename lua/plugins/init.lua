@@ -8,7 +8,12 @@ local function load_group(group, check)
   for _, name in ipairs(vim.fn.readdir(vim.fn.stdpath 'config' .. '/lua/plugins/' .. group)) do
     if name:match '%.lua$' then
       local mod = 'plugins.' .. group .. '.' .. name:gsub('%.lua$', '')
+      -- default is that each file returns its specs
       local plugin = require(mod)
+      -- but what if we checked for some method ?
+      if plugin.is_work ~= nil then
+        plugin = plugin.lazyspecs
+      end
       if check(name:gsub('%.lua$', '')) then
         table.insert(specs, plugin)
       end

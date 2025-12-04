@@ -1,10 +1,14 @@
+local ok, mod = pcall(require, 'plugins.testing.work')
+local default_vault = os.getenv 'HOMEDRIVE' .. os.getenv 'HOMEPATH' .. '\zettelkasten'
+local vault = ok and mod.get_zk_vault() or vim.fn.expand(default_vault)
+
 return {
   {
-    'renerocksai/telekasten.nvim',
+    'nvim-telekasten/telekasten.nvim',
     dependencies = { 'nvim-telescope/telescope.nvim' },
     config = function()
       require('telekasten').setup {
-        home = vim.fn.expand '~/zettelkasten',
+        home = vault,
       }
       -- Launch panel if nothing is typed after <leader>z
       vim.keymap.set('n', '<leader>z', '<cmd>Telekasten panel<CR>')
