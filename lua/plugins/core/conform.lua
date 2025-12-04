@@ -50,6 +50,7 @@ return {
         -- javascript = { "prettierd", "prettier", stop_after_first = true },
         javascript = { 'prettier' },
         html = { 'prettier' },
+        go = { 'gofmt' },
       },
       formatters = {
         isort = {

@@ -40,6 +40,7 @@ return {
         -- ensure formatters are installed for conform
         -- investigate mason-conform.nvim for autoinstall
         ensure_installed = {
+          'gopls',
           'sqlfluff',
           'prettier',
           'stylua',
