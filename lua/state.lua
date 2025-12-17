@@ -10,7 +10,7 @@ M.enable_extra = {}
 M.enable_testing = {
   work = true,
   telekasten = true,
-  minuet = true, -- TODO : this needs to define plugin availability elsewhere (blink-cmp)
+  minuet = false,
 }
 
 return M

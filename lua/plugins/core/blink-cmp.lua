@@ -1,3 +1,28 @@
+-- default sources
+local sources = {
+  default = { 'lsp', 'path', 'buffer', 'snippets', 'lazydev' },
+  providers = {
+    lazydev = { module = 'lazydev.integrations.blink', score_offset = 100 },
+  },
+}
+
+-- optionally add other sources depending on activated plugins
+local state = require 'state'
+if state.enable_testing['minuet'] then
+  -- Enable minuet for autocomplete.
+  -- For manual completion only, remove 'minuet' from default
+  table.insert(sources.default, 'minuet')
+  sources.providers['minuet'] = {
+    name = 'minuet',
+    module = 'minuet.blink',
+    async = true,
+    -- Should match minuet.config.request_timeout * 1000,
+    -- since minuet.config.request_timeout is in seconds
+    timeout_ms = 3000,
+    score_offset = 50, -- Gives minuet higher priority among suggestions
+  }
+end
+
 return {
   { -- Autocompletion
     'saghen/blink.cmp',
@@ -73,7 +98,7 @@ return {
         -- By default, you may press `<c-space>` to show the documentation.
         -- Optionally, set `auto_show = true` to show the documentation after a delay.
         documentation = { auto_show = true, auto_show_delay_ms = 500 },
-        -- Recommended to avoid unnecessary request (minuet)
+        -- Recommended to avoid unnecessary request (minuet/ai)
         trigger = { prefetch_on_insert = false },
         -- Trying to print source names
         menu = {
@@ -90,23 +115,7 @@ return {
         },
       },
 
-      sources = {
-        -- Enable minuet for autocomplete.
-        default = { 'lsp', 'path', 'buffer', 'snippets', 'lazydev', 'minuet' },
-        -- For manual completion only, remove 'minuet' from default
-        providers = {
-          lazydev = { module = 'lazydev.integrations.blink', score_offset = 100 },
-          minuet = {
-            name = 'minuet',
-            module = 'minuet.blink',
-            async = true,
-            -- Should match minuet.config.request_timeout * 1000,
-            -- since minuet.config.request_timeout is in seconds
-            timeout_ms = 3000,
-            score_offset = 50, -- Gives minuet higher priority among suggestions
-          },
-        },
-      },
+      sources = sources,
 
       snippets = { preset = 'luasnip' },
 
