@@ -1,3 +1,6 @@
+-- TODO : local config = require("whatever.config")
+local logger = require 'logger'
+local providers = require 'ai.providers'
 local ts = require 'ai.ts'
 
 ---@class AIProvider
@@ -7,60 +10,61 @@ local ts = require 'ai.ts'
 ---@field build_request fun(opts: table): table
 ---@field parse_response fun(resp: table): string
 
-local providers = {
-  openai = require 'ai.providers.openai',
-  mistral = require 'ai.providers.mistral',
-}
+-- Example codestral curl request for FIM :
+-- curl --location 'https://api.mistral.ai/v1/fim/completions' \
+--header 'Content-Type: application/json' \
+--header 'Accept: application/json' \
+--header "Authorization: Bearer $MISTRAL_API_KEY" \
+--data '{
+--     "model": "codestral-latest",
+--     "prompt": "def fibonacci(n: int):",
+--     "suffix": "n = int(input('Enter a number: '))\nprint(fibonacci(n))",
+--     "max_tokens": 64,
+--     "temperature": 0
+-- }' -- suffix "optional", can be used for pure completion without one.
+-- also "stop" tokens available to stop generation when it generates specific strings.
+-- "stop": ["return"] for example.
+
+-- Chat completion example request :
+-- curl --location "https://api.mistral.ai/v1/chat/completions" \
+--header 'Content-Type: application/json' \
+--header 'Accept: application/json' \
+--header "Authorization: Bearer $MISTRAL_API_KEY" \
+--data '{
+--   "model": "codestral-latest",
+--   "messages": [{"role": "user", "content": "Write a function for fibonacci"}]
+-- }'
+--
+-- again, refer to https://docs.mistral.ai/capabilities/code_generation for more info.
 
 local M = {}
 
 -- Make this part independent of work plugin to move it to config.
 -- Work plugin should only have to feed its providers.
 
-local default = {
-  config = {
-    provider = 'openai', -- "openai" | "mistral"
-    model = nil, -- nil = provider default
-    temperature = 0.1,
-    max_tokens = 256,
-  },
-  context = {
-    ns = vim.api.nvim_create_namespace 'ai',
-    extmark = nil,
-    suggestion = nil,
-  },
+local default_config = {
+  provider = 'codestral', -- or "openai", "mistral"
+  model = 'codestral-2501',
+  temperature = 0.2,
+  max_tokens = 256, -- min_tokens also available (codestral)
 }
-
-local runtime = vim.deepcopy(default)
-local config = runtime.config
-local context = runtime.context
+local runtime_config = vim.deepcopy(default_config)
 
 -- TODO : make this part better through setup() impl.
 
 function M.set(opts)
-  runtime = vim.tbl_deep_extend('force', default, opts or {})
+  runtime_config = vim.tbl_deep_extend('force', default_config, opts or {})
 end
 
-----------------------------------------------------------------------
--- Provider resolution
-----------------------------------------------------------------------
-
-local function get_provider()
-  local name = config.runtime.ai.provider
-  local p = providers[name]
-  if not p then
-    error('Unknown AI provider: ' .. tostring(name))
-  end
-  return p
-end
+local shared_context = {
+  ns = vim.api.nvim_create_namespace 'ai',
+  extmark = nil,
+  suggestion = nil,
+}
 
 ----------------------------------------------------------------------
 -- Context helpers
 ----------------------------------------------------------------------
-
-local function buffer_text()
-  return table.concat(vim.api.nvim_buf_get_lines(0, 0, -1, false), '\n')
-end
 
 local function cursor_context(max_lines)
   local row, col = unpack(vim.api.nvim_win_get_cursor(0))
@@ -73,69 +77,23 @@ local function cursor_context(max_lines)
   return table.concat(lines, '\n')
 end
 
-local function context_for_completion()
-  local node = ts.extract()
+---
+---
+---
 
-  if node then
-    return ts.node_text_upto_cursor(node)
-  end
-
-  -- fallback if TS unavailable
-  return cursor_context(20)
-end
-
-----------------------------------------------------------------------
--- Low-level request dispatcher (provider-agnostic)
-----------------------------------------------------------------------
-
-local function dispatch(messages, on_result)
-  local ai = config.runtime.ai
-  local provider = get_provider()
-
-  local api_key = os.getenv(provider.api_key_env)
-  if not api_key then
-    vim.notify('Missing API key: ' .. provider.api_key_env, vim.log.levels.ERROR)
-    return
-  end
-
-  local req = provider.build_request {
-    api_key = api_key,
-    model = ai.model,
-    messages = messages,
-    temperature = ai.temperature,
-    max_tokens = ai.max_tokens,
-  }
-
-  local payload = vim.fn.json_encode(req.body)
-
-  local cmd = {
-    'curl',
-    '-s',
-    '-X',
-    'POST',
-    req.url,
-  }
-
-  for _, h in ipairs(req.headers) do
-    table.insert(cmd, '-H')
-    table.insert(cmd, h)
-  end
-
-  table.insert(cmd, '-d')
-  table.insert(cmd, payload)
-
-  vim.fn.jobstart(cmd, {
-    stdout_buffered = true,
-    on_stdout = function(_, data)
-      if not data then
-        return
+local function dump(o)
+  if type(o) == 'table' then
+    local s = '{ '
+    for k, v in pairs(o) do
+      if type(k) ~= 'number' then
+        k = '"' .. k .. '"'
       end
-      local ok, decoded = pcall(vim.fn.json_decode, table.concat(data))
-      if ok then
-        on_result(provider.parse_response(decoded))
-      end
-    end,
-  })
+      s = s .. '[' .. k .. '] = ' .. dump(v) .. ','
+    end
+    return s .. '} '
+  else
+    return tostring(o)
+  end
 end
 
 ----------------------------------------------------------------------
@@ -143,16 +101,18 @@ end
 ----------------------------------------------------------------------
 
 local function clear_completion()
-  if context.extmark then
-    vim.api.nvim_buf_del_extmark(0, context.ns, context.extmark)
+  if shared_context.extmark then
+    vim.api.nvim_buf_del_extmark(0, shared_context.ns, shared_context.extmark)
   end
-  context.extmark = nil
-  context.suggestion = nil
+  shared_context.extmark = nil
+  shared_context.suggestion = nil
 end
 
 local function show_completion(text)
   clear_completion()
 
+  -- to trim trailing newline/avoid blank ghost line :
+  -- text = text:gsub("\n$", "")
   text = vim.trim(text)
   if text == '' then
     return
@@ -161,22 +121,40 @@ local function show_completion(text)
   local row, col = unpack(vim.api.nvim_win_get_cursor(0))
   row = row - 1
 
-  context.suggestion = text
-  context.extmark = vim.api.nvim_buf_set_extmark(0, context.ns, row, col, {
-    virt_text = { { text, 'Comment' } },
-    virt_text_pos = 'overlay',
+  local lines = vim.split(text, '\n', { plain = true })
+
+  shared_context.extmark = vim.api.nvim_buf_set_extmark(0, shared_context.ns, row, col, {
+    virt_lines = vim.tbl_map(function(line)
+      return { { line, 'Comment' } }
+    end, lines),
+    virt_lines_above = false,
   })
+
+  shared_context.suggestion = text
 end
 
 local function accept_completion()
-  if not context.suggestion then
+  if not shared_context.suggestion then
     return
   end
 
-  local row, col = unpack(vim.api.nvim_win_get_cursor(0))
-  row = row - 1
+  -- old version
+  -- local row, col = unpack(vim.api.nvim_win_get_cursor(0))
+  -- row = row - 1
+  -- vim.api.nvim_buf_set_text(0, row, col, row, col, vim.split(context.suggestion, '\n'))
+  -- new version
+  -- vim.api.nvim_put({ shared_context.suggestion }, 'c', true, true)
 
-  vim.api.nvim_buf_set_text(0, row, col, row, col, vim.split(context.suggestion, '\n'))
+  -- normalize text
+  local text = shared_context.suggestion:gsub('\n$', '')
+
+  -- split to lines
+  local lines = vim.split(text, '\n', { plain = true })
+
+  logger.log(lines)
+
+  -- insert
+  vim.api.nvim_put(lines, 'c', true, true)
 
   clear_completion()
 end
@@ -186,36 +164,66 @@ end
 ----------------------------------------------------------------------
 
 function M.complete()
-  local ctx = context_for_completion()
+  logger.log 'Complete...'
 
-  local messages = {
-    {
-      role = 'system',
-      content = 'You are a code completion engine. ' .. 'Continue the code at the cursor position. ' .. 'Do not repeat input.',
-    },
-    {
-      role = 'user',
-      content = ctx,
-    },
+  local node = ts.extract()
+
+  local prefix = node and ts.node_text_upto_cursor(node) or cursor_context(20)
+
+  local payload = {
+    model = runtime_config.model or 'codestral-2501',
+    prompt = prefix,
+    suffix = '',
+    max_tokens = runtime_config.max_tokens or 256,
   }
 
-  dispatch(messages, show_completion)
+  logger.log('payload:', payload)
+
+  local provider = providers.get 'codestral'
+  local res, err = provider.request('/fim/completions', payload)
+
+  logger.log('res:', res)
+  logger.log('err:', err)
+
+  if not res then
+    vim.notify(err, vim.log.levels.ERROR)
+    return
+  end
+
+  if res.detail then
+    vim.notify(res.detail, vim.log.levels.ERROR)
+    return
+  end
+
+  local text = res.choices and res.choices[1] and res.choices[1].message.content
+  if not text or text == '' then
+    return
+  end
+
+  logger.log('text: ' .. text)
+
+  show_completion(text)
 end
 
-function M.prompt(opts)
-  local instruction = opts.args ~= '' and opts.args or 'Analyze the following code.'
-
-  local messages = {
-    { role = 'system', content = instruction },
-    { role = 'user', content = buffer_text() },
+function M.prompt(input)
+  local payload = {
+    model = runtime_config.model or 'codestral-2501',
+    messages = {
+      { role = 'system', content = runtime_config.system_prompt },
+      { role = 'user', content = input },
+    },
   }
 
-  dispatch(messages, function(text)
-    vim.cmd 'new'
-    vim.bo.buftype = 'nofile'
-    vim.bo.bufhidden = 'wipe'
-    vim.api.nvim_buf_set_lines(0, 0, -1, false, vim.split(vim.trim(text), '\n'))
-  end)
+  local provider = providers.get 'codestral'
+  local res, err = provider.request('/chat/completions', payload)
+
+  if not res then
+    vim.notify(err, vim.log.levels.ERROR)
+    return
+  end
+
+  local text = res.choices[1].message.content
+  vim.notify(text, vim.log.levels.INFO)
 end
 
 ----------------------------------------------------------------------
@@ -229,5 +237,11 @@ function M.setup_commands()
 
   vim.keymap.set('i', '<C-l>', accept_completion, { desc = 'Accept AI completion' })
 end
+
+-- vim.api.nvim_create_autocmd({ 'CursorMovedI', 'InsertLeave' }, {
+--   callback = function()
+--     M.clear_completion()
+--   end,
+-- })
 
 return M

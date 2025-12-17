@@ -4,6 +4,7 @@ require 'commands'
 require 'keymaps'
 require 'plugins'
 require 'lsp'
+require('ai').setup_commands()
 
 --
 -- The line beneath this is called `modeline`. See `:help modeline`

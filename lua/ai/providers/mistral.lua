@@ -1,16 +1,16 @@
 local M = {}
 
-M.name = "mistral"
-M.default_model = "codestral-2501"
-M.api_key_env = "MISTRAL_API_KEY"
-M.url = "https://api.mistral.ai/v1/chat/completions"
+M.name = 'mistral'
+M.default_model = 'codestral-2501'
+M.api_key_env = 'CODESTRAL_API_KEY'
+M.url = 'https://api.mistral.ai/v1/chat/completions'
 
 function M.build_request(opts)
   return {
     url = M.url,
     headers = {
-      "Content-Type: application/json",
-      "Authorization: Bearer " .. opts.api_key,
+      'Content-Type: application/json',
+      'Authorization: Bearer ' .. opts.api_key,
     },
     body = {
       model = opts.model or M.default_model,

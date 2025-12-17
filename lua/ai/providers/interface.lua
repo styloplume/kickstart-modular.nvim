@@ -1,0 +1,21 @@
+-- Provider interface (documentation only)
+--
+-- provider = {
+--   name = string,
+--
+--   complete(ctx, opts) -> string | nil, err?
+--     ctx = {
+--       prefix = string,   -- text before cursor
+--       suffix = string,   -- optional (FIM)
+--       filetype = string,
+--     }
+--
+--   chat(messages, opts) -> string | nil, err?
+-- }
+--
+-- Providers may support:
+--   - complete only
+--   - chat only
+--   - both
+--
+return {}
