@@ -54,6 +54,9 @@ return {
         go = { 'gofmt' },
       },
       formatters = {
+        sqlfluff = {
+          args = { 'format', '--dialect=ansi', '-' },
+        },
         isort = {
           -- Override defaults (--line-ending \r\n) as it exits code 2 pretending not having an argument (Win11).
           command = 'isort',
