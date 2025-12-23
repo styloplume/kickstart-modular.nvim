@@ -11,6 +11,7 @@ M.enable_testing = {
   work = true,
   telekasten = true,
   minuet = false,
+  rendermarkdown = true,
 }
 
 return M
