@@ -48,6 +48,9 @@ return {
           'bashls',
           'shfmt', -- dont forget shellcheck via scoop if no tar
           'powershell-editor-services',
+          'ruff',
+          'pyright',
+          'clangd',
         },
         auto_update = false,
       }

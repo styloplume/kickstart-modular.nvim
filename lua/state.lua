@@ -9,9 +9,9 @@ M.enable_extra = {}
 -- TESTING plugins: OFF by default
 M.enable_testing = {
   work = true,
-  telekasten = true,
+  telekasten = false,
   minuet = false,
-  rendermarkdown = true,
+  rendermarkdown = false,
 }
 
 return M
