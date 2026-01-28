@@ -17,6 +17,10 @@ function M.setup(defaults)
         },
         -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
         -- diagnostics = { disable = { 'missing-fields' } },
+        diagnostics = {
+          -- Tell LSP vim is ok as global
+          globals = { 'vim' },
+        },
       },
     },
   })

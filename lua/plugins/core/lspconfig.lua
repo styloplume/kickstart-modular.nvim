@@ -40,14 +40,14 @@ return {
         -- ensure formatters are installed for conform
         -- investigate mason-conform.nvim for autoinstall
         ensure_installed = {
-          'marksman',
+          -- 'marksman',
           'gopls',
           'sqlfluff',
           'prettier',
           'stylua',
           'bashls',
           'shfmt', -- dont forget shellcheck via scoop if no tar
-          'powershell-editor-services',
+          -- 'powershell-editor-services',
           'ruff',
           'pyright',
           'clangd',
