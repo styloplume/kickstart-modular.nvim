@@ -41,16 +41,18 @@ return {
         -- investigate mason-conform.nvim for autoinstall
         ensure_installed = {
           -- 'marksman',
+          'clangd',
+          'rust_analyzer',
           'gopls',
+          'ruff',
+          'pyright',
+          'lua_ls',
+          'stylua',
           'sqlfluff',
           'prettier',
-          'stylua',
           'bashls',
           'shfmt', -- dont forget shellcheck via scoop if no tar
           -- 'powershell-editor-services',
-          'ruff',
-          'pyright',
-          'clangd',
         },
         auto_update = false,
       }

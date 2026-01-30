@@ -36,3 +36,38 @@ vim.api.nvim_create_autocmd('TermOpen', {
     vim.opt.relativenumber = false
   end,
 })
+
+-- Because 0.12 offers built LSP api while not entirely replacing nvim-lspconfig's stuff,
+-- we have to redefine some things for comfort.
+
+vim.api.nvim_create_user_command('LspInfo', function()
+  local bufnr = vim.api.nvim_get_current_buf()
+  local clients = vim.lsp.get_clients { bufnr = bufnr }
+
+  if #clients == 0 then
+    vim.notify('No LSP clients attached to current buffer', vim.log.levels.INFO)
+    return
+  end
+
+  local lines = {}
+
+  for _, c in ipairs(clients) do
+    lines[#lines + 1] = string.format('%s (id=%d)', c.name, c.id)
+
+    lines[#lines + 1] = '  root: ' .. (c.config.root_dir or 'nil')
+    lines[#lines + 1] = '  filetypes: ' .. table.concat(c.config.filetypes or {}, ', ')
+
+    local enc = c.offset_encoding
+    if type(enc) == 'table' then
+      enc = table.concat(enc, ', ')
+    elseif type(enc) ~= 'string' then
+      enc = 'unknown'
+    end
+    lines[#lines + 1] = '  offsetEncoding: ' .. enc
+
+    -- rest unchanged
+  end
+
+  -- Display in a scratch buffer
+  vim.lsp.util.open_floating_preview(lines, 'markdown', { border = 'rounded' })
+end, {})

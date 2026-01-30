@@ -3,7 +3,7 @@ require 'options'
 require 'commands'
 require 'keymaps'
 require 'plugins'
-require 'lsp'
+-- require 'lsp' -- back to defaults for now.
 require('ai').setup_commands()
 
 --
